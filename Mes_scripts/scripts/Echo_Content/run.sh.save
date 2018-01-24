@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "tapez l'addresse absolue du dossier (exemple: /home/samuel/Bash/repo) :" && read chemin 
+liste=$(ls $chemin)
+
+nb=$(ls | wc -l) #ls 
+echo "$nb fichier trouver..."
+echo "les voici : "
+for file in $liste; do
+    contenu=$(cat $chemin/$file)
+    echo "$file et voici son contenu : $contenu"
+done   
