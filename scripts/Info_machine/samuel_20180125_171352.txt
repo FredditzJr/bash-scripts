@@ -1,0 +1,9 @@
+Utilisateur :  samuel
+Chemin du home de l'utilisateur : /home/samuel
+l'OS et le type de machine :
+Distributor ID:	Debian
+Release:	7.11
+Codename:	wheezy
+Version Bash : 4.2.37(1)-release
+nombre de processeur : 4
+la Ram  7,7G
