@@ -10,7 +10,9 @@ function menu()
     OIFS=$IFS; IFS=$'\n';scripts=($(ls "scripts/"));IFS=$OIFS;
     scripts+=("Quit")
     COLUMNS=12
-    echo "veuillez choisir un script à executer ci : "
+    echo "Hello $USER"
+    sleep 1
+    echo "which script do you want to run ? : "
 
     select script in "${scripts[@]}"; do
         case $script in
