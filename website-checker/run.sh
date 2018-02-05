@@ -8,14 +8,15 @@ red="\033[31;40m"
 none="\033[0m"
 blue="\033[36;40m"
 COLUMNS=12
+chemin=$(pwd)
 
-function welcome()
+function welcome() # Welcome  Message
 {
     clear
     echo -e $blue"##########################################################################################";
     echo -e "#"$none"     _________                            .__      _________                            "$blue"#";
-    echo -e "#"$none"    /   _____/____    _____  __ __   ____ |  |    /   _____/__ ________   ___________   "$blue"#";
-    echo -e "#"$none"    \_____  \\__  \  /     \|  |  \_/ __ \|  |    \_____  \|  |  \____ \_/ __ \_  __ \   "$blue"#";
+    echo -e "#"$none"    /   _____/____    _____  __ __  ____  |  |    /   _____/__ ________   ___________   "$blue"#";
+    echo -e "#"$none"    \_____  \\__  \  /     \|  |  \_/ __ \ |  |   \_____  \|  |  \____ \_/ __ \_  __ \   "$blue"#";
     echo -e "#"$none"    /        \/ __ \|  Y Y  \  |  /\  ___/|  |__  /        \  |  /  |_> >  ___/|  | \/  "$blue"#";
     echo -e "#"$none"   /_______  (____  /__|_|  /____/  \___  >____/ /_______  /____/|   __/ \___  >__|     "$blue"#";
     echo -e "#"$none"           \/     \/      \/            \/               \/      |__|        \/         "$blue"#";
@@ -26,17 +27,19 @@ function welcome()
     echo -e "#"$none"     \__/\  /  \___  >___  /  \______  /___|  /\___  >\___  >__|_ \\___  >__|            "$blue"#";
     echo -e "#"$none"          \/       \/    \/          \/     \/     \/     \/     \/    \/               "$blue"#";
     echo -e $blue"##########################################################################################";
+echo -e " $blue
 }
-function menu()
+
+function menu() # Choice of the option in the menu
 {
-    OIFS=$IFS; IFS=$'\n';$REPLY;IFS=$OIFS;
-    echo -e "$red                                    :: MAIN MENU ::$none"
-    a1=$(echo -e $blue"check sites config.txt"$none)
-    a2=$(echo -e $blue"Enter a site"$none)
-    a3=$(echo -e $blue"Quittez (q,Q)"$none)
+    check=$(echo -e $blue"check sites config.txt"$none)
+    Enter=$(echo -e $blue"Enter a site"$none)
+    Quit=$(echo -e $blue"Quittez (q,Q)"$none)
     PS3="---> select an option : "
+    OIFS=$IFS; IFS=$'\n';$things;IFS=$OIFS;
+    echo -e "$red                                    :|: MAIN MENU :|:$none"
 echo "------------------------------------------------------------------------------------------"
-    select things in "$a1" "$a2" "$a3" ;do
+    select Choices in "$check" "$Enter" "$Quit" ;do
         case $REPLY in
             1) option1
                break;;
@@ -51,7 +54,8 @@ echo "--------------------------------------------------------------------------
          esac
      done
 }
-function check()
+
+function check() # Check the sites in the config.txt .
 {
     liste=$(cat config.txt)
 
@@ -69,22 +73,26 @@ function check()
     done
 }
 
-function Enter()
+function Grab()  # shows and check if the site is functionnal .
 {
-    echo -e $green Enter a site : "(example:www.google.fr)"$none
-    read type
+    if [ $# -eq 0  ];then
+        echo -e "$green Enter a site :example:www.google.fr $none"
+        read type
+    else
+         type=$1
+    fi
+
     result=$(curl -Is $type  | head -n 1 | cut -d ' ' -f 2)
 
-        if [ "$result" == "200" ]; then
-            echo -e "$green functional site ! $none"
-        else
-            echo -e "$red $type Down !! $none"
-            down+=($type)
-        fi
-
+    if [ "$result" == "200" ]; then
+        echo -e "$green functional site ! $none"
+    else
+         echo -e "$red $type Down !! $none"
+         down+=($type)
+    fi
 }
 
-function send_mail()
+function send_mail() # sending a mail for the down site ONLY !
 {
     emails=$(cat emails.txt)
     for liste in $emails; do
@@ -92,8 +100,9 @@ function send_mail()
     done
 }
 
-function plop(){
-    robot=$(cat dessin)
+function Sending() # for make wait the user
+{
+robot=$(cat dessin.txt)
     if [ $down="`echo $var | grep motif`" ];then
         echo -e "$blue Sending down site , wait please ... $none"
         tput blink; echo "$robot"; tput sgr0
@@ -103,10 +112,32 @@ function plop(){
     fi
 }
 
-function option1
+function checkandsend # check + send function
 {
     check
-    plop
+    Sending
 }
-welcome
-menu
+
+function help()   # show the main menu --help
+{
+    echo -e "Usage : bash $0 $green--[options]$none"
+    echo
+    echo -e  " $green --all [script name] $none              : If you want to check de site in config.txt ."
+    echo -e  " $green --site $none                            :Enter a site "
+    echo -e  " $green --help $none                               : Show this help."
+    echo
+    echo -e " $green If you don't pass any argument, the script will be run in interactif mode $none"
+}
+
+if [ $# -eq 0 ]; then
+    welcome
+    menu
+else #option for running more fast and easy
+    case "$1" in
+        --all) checkandsend ;;
+        --site) Grap $2;Sending  ;;
+        --help | -h) help; exit 0 ;;
+        *) echo -e $red"ERROR ! : Use --help for see option"$none; exit 1;;
+    esac
+fi
+echo -e "$blue ############################################################ $none $red Bye ! $none $blue ############################################################ $none "
