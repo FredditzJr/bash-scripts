@@ -27,7 +27,7 @@ function welcome() # Welcome  Message
     echo -e "#"$none"     \__/\  /  \___  >___  /  \______  /___|  /\___  >\___  >__|_ \\___  >__|            "$blue"#";
     echo -e "#"$none"          \/       \/    \/          \/     \/     \/     \/     \/    \/               "$blue"#";
     echo -e $blue"##########################################################################################";
-echo -e " $blue
+    echo -e $blue "Hello $USER" $none
 }
 
 function menu() # Choice of the option in the menu
@@ -41,10 +41,12 @@ function menu() # Choice of the option in the menu
     echo "------------------------------------------------------------------------------------------"
     select Choices in "$check" "$Enter" "$Quit" ;do
         case $REPLY in
-            1) option1
-               break;;
+            1) checkandsend
+               break ;;
 
-            2) Enter
+            2) Grab
+               Sending
+               send_mail
                break ;;
 
             3|Q*|q*) echo -e "$blue Bye ! $none"
@@ -85,7 +87,7 @@ function Grab()  # shows and check if the site is functionnal .
     result=$(curl -Is $type  | head -n 1 | cut -d ' ' -f 2)
 
     if [ "$result" == "200" ]; then
-        echo -e "$green functional site ! $none"
+         echo -e "$green functional site ! $none"
     else
          echo -e "$red $type Down !! $none"
          down+=($type)
@@ -102,7 +104,7 @@ function send_mail() # sending a mail for the down site ONLY !
 
 function Sending() # for make wait the user
 {
-robot=$(cat dessin.txt)
+    robot=$(cat dessin.txt)
     if [ $down="`echo $var | grep motif`" ];then
         echo -e "$blue Sending down site , wait please ... $none"
         tput blink; echo "$robot"; tput sgr0
@@ -122,7 +124,7 @@ function help()   # show the main menu --help
 {
     echo -e "Usage : bash $0 $green--[options]$none"
     echo
-    echo -e  $green" --all [script name] "$none"              : If you want to check de site in config.txt ."
+    echo -e  $green" --all "$none"              : If you want to check de site in config.txt ."
     echo -e  $green" --site "$none"                            :Enter a site "
     echo -e  $green" --help" $none"                               : Show this help."
     echo
@@ -140,4 +142,4 @@ else #option for running more fast and easy
         *) echo -e $red"ERROR ! : Use --help for see option"$none ; exit 1;;
     esac
 fi
-echo -e $blue" ############################################################ $none $red Bye ! $none $blue ############################################################ $none" 
+echo -e "$blue ############################################################ $none $red Bye ! $none $blue ############################################################ $none" 
