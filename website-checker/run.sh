@@ -38,7 +38,7 @@ function menu() # Choice of the option in the menu
     PS3="---> select an option : "
     OIFS=$IFS; IFS=$'\n';$things;IFS=$OIFS;
     echo -e "$red                                    :|: MAIN MENU :|:$none"
-echo "------------------------------------------------------------------------------------------"
+    echo "------------------------------------------------------------------------------------------"
     select Choices in "$check" "$Enter" "$Quit" ;do
         case $REPLY in
             1) option1
@@ -75,7 +75,7 @@ function check() # Check the sites in the config.txt .
 
 function Grab()  # shows and check if the site is functionnal .
 {
-    if [ $# -eq 0  ];then
+    if [ $# -eq 0  ]; then
         echo -e "$green Enter a site :example:www.google.fr $none"
         read type
     else
@@ -112,7 +112,7 @@ robot=$(cat dessin.txt)
     fi
 }
 
-function checkandsend # check + send function
+function checkandsend() # check + send function
 {
     check
     Sending
@@ -122,11 +122,11 @@ function help()   # show the main menu --help
 {
     echo -e "Usage : bash $0 $green--[options]$none"
     echo
-    echo -e  " $green --all [script name] $none              : If you want to check de site in config.txt ."
-    echo -e  " $green --site $none                            :Enter a site "
-    echo -e  " $green --help $none                               : Show this help."
+    echo -e  $green" --all [script name] "$none"              : If you want to check de site in config.txt ."
+    echo -e  $green" --site "$none"                            :Enter a site "
+    echo -e  $green" --help" $none"                               : Show this help."
     echo
-    echo -e " $green If you don't pass any argument, the script will be run in interactif mode $none"
+    echo -e  $green "If you dont pass any argument, the script will be run in interactif mode" $none
 }
 
 if [ $# -eq 0 ]; then
@@ -135,9 +135,9 @@ if [ $# -eq 0 ]; then
 else #option for running more fast and easy
     case "$1" in
         --all) checkandsend ;;
-        --site) Grap $2;Sending  ;;
-        --help | -h) help; exit 0 ;;
-        *) echo -e $red"ERROR ! : Use --help for see option"$none; exit 1;;
+        --site) Grap $2 ; Sending  ;;
+        --help | -h) help ; exit 0 ;;
+        *) echo -e $red"ERROR ! : Use --help for see option"$none ; exit 1;;
     esac
 fi
-echo -e "$blue ############################################################ $none $red Bye ! $none $blue ############################################################ $none "
+echo -e $blue" ############################################################ $none $red Bye ! $none $blue ############################################################ $none" 
