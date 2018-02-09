@@ -45,7 +45,6 @@ function menu() # Choice of the option in the menu
                break ;;
 
             2) Grab
-               Sending
                send_mail
                break ;;
 
@@ -91,6 +90,7 @@ function Grab()  # shows and check if the site is functionnal .
     else
          echo -e "$red $type Down !! $none"
          down+=($type)
+         sending
     fi
 }
 
@@ -137,7 +137,7 @@ if [ $# -eq 0 ]; then
 else #option for running more fast and easy
     case "$1" in
         --all) checkandsend ;;
-        --site) Grap $2 ; Sending  ;;
+        --site) Grap $2 ;;
         --help | -h) help ; exit 0 ;;
         *) echo -e $red"ERROR ! : Use --help for see option"$none ; exit 1;;
     esac
