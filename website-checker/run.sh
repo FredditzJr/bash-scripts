@@ -14,18 +14,18 @@ function welcome() # Welcome  Message
 {
     clear
     echo -e $blue"#########################################################################################################################################################";
-    echo -e "#"$none"      _________                            .__      _________                            "$blue"#                                                           #";
-    echo -e "#"$none"     /   _____/____    _____  __ __  ____  |  |    /   _____/__ ________   ___________   "$blue"#                                                           #";
-    echo -e "#"$none"     \_____  \\__  \  /     \|  |  \_/ __ \ |  |   \_____  \|  |  \____ \_/ __ \_  __ \   "$blue"#                                                           #";
-    echo -e "#"$none"     /        \/ __ \|  Y Y  \  |  /\  ___/|  |__  /        \  |  /  |_> >  ___/|  | \/  "$blue"#                                                           #";
-    echo -e "#"$none"    /_______  (____  /__|_|  /____/  \___  >____/ /_______  /____/|   __/ \___  >__|     "$blue"#                                                           #";
-    echo -e "#"$none"            \/     \/      \/            \/               \/      |__|        \/         "$blue"#                                                           #";
-    echo -e "#"$none"     __      __      ___.     _________ .__                   __                         "$blue"#"  "Version 1.0                                               #";
-    echo -e "#"$none"    /  \    /  \ ____\_ |__   \_   ___ \|  |__   ____   ____ |  | __ ___________         "$blue"#                                                           #";
-    echo -e "#"$none"    \   \/\/   // __ \| __ \  /    \  \/|  |  \_/ __ \_/ ___\|  |/ // __ \_  __ \        "$blue"#"  "Author :FredditzJr (samuel)                               #";
-    echo -e "#"$none"     \        /\  ___/| \_\ \ \     \___|   Y  \  ___/\  \___|    <\  ___/|  | \/        "$blue"#                                                           #";
-    echo -e "#"$none"      \__/\  /  \___  >___  /  \______  /___|  /\___  >\___  >__|_ \\___  >__|            "$blue"#                                                           #";
-    echo -e "#"$none"           \/       \/    \/          \/     \/     \/     \/     \/    \/               "$blue"#                                                           #";
+    echo -e "#"$none"      _________                            .__      _________                            "$blue"#                                                             #";
+    echo -e "#"$none"     /   _____/____    _____  __ __  ____  |  |    /   _____/__ ________   ___________   "$blue"#                                                             #";
+    echo -e "#"$none"     \_____  \\__  \  /     \|  |  \_/ __ \ |  |   \_____  \|  |  \____ \_/ __ \_  __ \   "$blue"#                                                             #";
+    echo -e "#"$none"     /        \/ __ \|  Y Y  \  |  /\  ___/|  |__  /        \  |  /  |_> >  ___/|  | \/  "$blue"#                                                             #";
+    echo -e "#"$none"    /_______  (____  /__|_|  /____/  \___  >____/ /_______  /____/|   __/ \___  >__|     "$blue"#                                                             #";
+    echo -e "#"$none"            \/     \/      \/            \/               \/      |__|        \/         "$blue"#                                                             #";
+    echo -e "#"$none"     __      __      ___.     _________ .__                   __                         "$blue"#"  "Version 1.0                                                 #";
+    echo -e "#"$none"    /  \    /  \ ____\_ |__   \_   ___ \|  |__   ____   ____ |  | __ ___________         "$blue"#                                                             #";
+    echo -e "#"$none"    \   \/\/   // __ \| __ \  /    \  \/|  |  \_/ __ \_/ ___\|  |/ // __ \_  __ \        "$blue"#"  "Author :FredditzJr (samuel)                                 #";
+    echo -e "#"$none"     \        /\  ___/| \_\ \ \     \___|   Y  \  ___/\  \___|    <\  ___/|  | \/        "$blue"#                                                             #";
+    echo -e "#"$none"      \__/\  /  \___  >___  /  \______  /___|  /\___  >\___  >__|_ \\___  >__|            "$blue"#                                                             #";
+    echo -e "#"$none"           \/       \/    \/          \/     \/     \/     \/     \/    \/               "$blue"#                                                             #";
     echo -e $blue"#########################################################################################################################################################";
     echo -e $blue "Hello $USER" $none
 }
@@ -45,6 +45,7 @@ function menu() # Choice of the option in the menu
                break ;;
 
             2) Grab
+               Sending
                send_mail
                break ;;
 
@@ -90,7 +91,6 @@ function Grab()  # shows and check if the site is functionnal .
     else
          echo -e "$red $type Down !! $none"
          down+=($type)
-         sending
     fi
 }
 
@@ -137,7 +137,7 @@ if [ $# -eq 0 ]; then
 else #option for running more fast and easy
     case "$1" in
         --all) checkandsend ;;
-        --site) Grap $2 ;;
+        --site) Grap $2 ; Sending  ;;
         --help | -h) help ; exit 0 ;;
         *) echo -e $red"ERROR ! : Use --help for see option"$none ; exit 1;;
     esac
